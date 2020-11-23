@@ -20,4 +20,4 @@
 * AWS
 
 ## La api se encuentra deployada en una instancia mia de EC2 de AWS y puede ser accedida en la direccion 
-## http://3.128.29.234:3000/<endpoint>
+## http://3.128.29.234:3000/**<**endpoint**>**
