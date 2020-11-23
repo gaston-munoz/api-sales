@@ -7,8 +7,6 @@ import { validateEmail } from '../../utils';
 
 const { SECRET } = process.env;
 
-console.log('SECRET', SECRET);
-
 export const getAll = async (req, res) => {
     let response = {}
     try {
@@ -30,7 +28,6 @@ export const getById = async (req, res) => {
     try {
       const { id } = req.params;   
       const user = await Users.findById(id);
-      console.log('USERS', user);
 
       if(user) { 
          response = { success: true, user };
@@ -74,12 +71,9 @@ export const create = async (req, res) => {
           password: newPass,
       })
 
-      console.log(newUser);
-
       await newUser.save();
 
       response = { success: true, user: newUser };
-        
     } catch (error) {
         console.log(error);
 
@@ -109,12 +103,8 @@ export const update = async (req, res) => {
         }
 
         const newUser = await Users.findByIdAndUpdate({ _id: id }, user , { new: true });
-        
-        console.log('UPD USR', newUser); 
-        
+                
         response = { success: true, user: newUser };
-   
-
     } catch (error) {
         console.log(error);
         response = { success: false, message: error.message };
@@ -131,21 +121,15 @@ export const signIn = async (req, res) => {
         
         if(!user) throw new Error('Email wrong');
 
-        console.log('USER', user);
-
         const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch) throw new Error('Password wrong');
-
         const token = jwt.sign({ _id: user._id, name: user.name, email, password }, SECRET, { expiresIn: '1 days' });
 
-        console.log('SIGN TOKEN', token);
-
-        response = { success: true,  user, token }
-        
+        response = { success: true,  user, token }        
     } catch (error) {
         console.log(error);
         response = { success: false, message: error.message };
     }
 
-    res.status(200).json(response);
+    res.send(response);
 }

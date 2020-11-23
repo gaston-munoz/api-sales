@@ -9,7 +9,6 @@ export const getAll = async (req, res) => {
     let response = {}
     try {
       const products = await Products.find();
-      console.log('PRODUCTS', products)
       response = { success: true, products }
     } catch (error) {
         console.log(error);
@@ -24,7 +23,6 @@ export const getById = async (req, res) => {
     try {
       const { id } = req.params;   
       const product = await Products.findById(id);
-      console.log('USERS', product);
 
       if(product) { 
          response = { success: true, product };
@@ -40,6 +38,21 @@ export const getById = async (req, res) => {
     res.send(response)
 }
 
+export const getUserProducts = async (req, res) => {
+    let response = {}
+    try {
+      const { id: userId } = req.params;
+      
+      console.log('ID', userId)
+      const products = await Products.find({ userId });
+      response = { success: true, products }
+    } catch (error) {
+        console.log(error);
+        response = { success: false, message: error.message }
+    }
+
+    res.send(response);
+}
 
 export const create = async (req, res) => {
     let  response = {}
@@ -49,9 +62,9 @@ export const create = async (req, res) => {
             description = '',
             price = {},
             unit = '',
-            userId,
             categoryId 
         } = req.body;
+        const { _id: userId } = req.user;
 
         const newProduct = new Products({
             name,
@@ -63,12 +76,10 @@ export const create = async (req, res) => {
         })
 
         await newProduct.save();
-        console.log(newProduct);
         response = { success: true, product: newProduct }
     } catch (error) {
         console.log(error);
         response = { success: false, error: error.message }
-
     }
 
     res.send(response)
@@ -88,14 +99,9 @@ export const update = async (req, res) => {
 
         const existsUser = await Users.findById(id);
         if(!existsUser) throw new Error('User not exists');
-
         const newProduct = await Products.findByIdAndUpdate({ _id: id }, user , { new: true });
-        
-        console.log('UPD USR', newProduct); 
-        
+                
         response = { success: true, product: newProduct };
-   
-
     } catch (error) {
         console.log(error);
         response = { success: false, message: error.message };

@@ -25,7 +25,7 @@ server.use('/api/products', productsRouter);
 server.use('/api/category', categoryRouter);
 
 server.listen(PORT, () => {
-    logger.success(`Server run in port ${PORT}`)
+    logger.success(`Server listening on port ${PORT}`)
 });
 
 

@@ -7,10 +7,7 @@ export const getAll = async (req, res) => {
     try {
       const categories = await Category.find();
 
-      console.log('category', categories)
-
-      response = { success: true, categories }
-        
+      response = { success: true, categories }        
     } catch (error) {
         console.log(error);
         response = { success: false, message: error.message }
@@ -53,13 +50,9 @@ export const create = async (req, res) => {
             name,
             description
         })
-
         await newCategory.save();
 
-        console.log(newCategory);
-
-        response = { success: true, category: newCategory }
-        
+        response = { success: true, category: newCategory }        
     } catch (error) {
         console.log(error);
         response = { success: false, error: error.message }
