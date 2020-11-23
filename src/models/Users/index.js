@@ -6,10 +6,11 @@ const rolSchema = new Schema({
 
 const userSchema = new Schema({
     name    : { type: String, trim: true, required: true },
-    lastname : { type: String, trim: true },
+    lastname: { type: String, trim: true },
     email   : { type: String, unique: true, trim: true, required: true },
     password: { type: String, trim: true, required: true },
-    roles     : { type: [ rolSchema ] }
+    isAdmin : { type: Boolean, default: false },
+    roles   : { type: [ rolSchema ] }
 },
 {
     timestamps: true

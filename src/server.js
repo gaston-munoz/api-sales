@@ -6,7 +6,8 @@ import morgan from 'morgan';
 import dbConnection from './db';
 import {
     productsRouter,
-    usersRouter
+    usersRouter,
+    categoryRouter
 } from './routes';
 
 const logger = signale.scope('APP');
@@ -19,9 +20,9 @@ const server = express();
 server.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 server.use(express.json());
 
-server.use('/users', usersRouter);
-server.use('/products', productsRouter);
-
+server.use('/api/users', usersRouter);
+server.use('/api/products', productsRouter); 
+server.use('/api/category', categoryRouter);
 
 server.listen(PORT, () => {
     logger.success(`Server run in port ${PORT}`)
