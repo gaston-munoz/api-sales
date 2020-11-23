@@ -5,6 +5,7 @@ import signale from 'signale';
 import morgan from 'morgan';
 import dbConnection from './db';
 import {
+    homeRouter,
     productsRouter,
     usersRouter,
     categoryRouter
@@ -20,6 +21,7 @@ const server = express();
 server.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 server.use(express.json());
 
+server.use('/', homeRouter);
 server.use('/api/users', usersRouter);
 server.use('/api/products', productsRouter); 
 server.use('/api/category', categoryRouter);
