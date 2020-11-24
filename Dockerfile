@@ -6,7 +6,7 @@ WORKDIR /usr/src/my_first_app
 
 COPY package.json /usr/src/my_first_app/
 
-RUN npm i yarn
+RUN npm i yarn --force
 
 RUN yarn
 
