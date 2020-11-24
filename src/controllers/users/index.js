@@ -10,7 +10,7 @@ const { SECRET } = process.env;
 export const getAll = async (req, res) => {
     let response = {}
     try {
-      const users = await Users.find();
+      const users = await Users.find({}, { password: 0 });
 
       response = { success: true, users }
       
@@ -27,7 +27,7 @@ export const getById = async (req, res) => {
     let response = {}
     try {
       const { id } = req.params;   
-      const user = await Users.findById(id);
+      const user = await Users.findById(id, { password: 0 });
 
       if(user) { 
          response = { success: true, user };

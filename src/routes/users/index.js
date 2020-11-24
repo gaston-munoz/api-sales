@@ -10,10 +10,11 @@ import {
 
 const router = Router();
 
-router.post('/signin', signIn);
 router.get('/', isAuthenticated, getAll);
 router.get('/:id', getById);               
-router.post('/registry', create);
 router.put('/:id', isAuthenticated, update);
+router.post('/registry', create);
+router.post('/signin', signIn);
+
 
 export default router;

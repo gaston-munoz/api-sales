@@ -9,7 +9,7 @@ const { URI_MONGODB: URI } = process.env;
 
 const connection = () => { mongoose.connect(URI, {
     useUnifiedTopology: true,
-    useFindAndModify: true,
+    useFindAndModify: false,
     useCreateIndex: true,
     useNewUrlParser: true
 })

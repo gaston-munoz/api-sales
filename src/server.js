@@ -8,7 +8,8 @@ import {
     homeRouter,
     productsRouter,
     usersRouter,
-    categoryRouter
+    categoryRouter,
+    salesRouter
 } from './routes';
 
 const logger = signale.scope('APP');
@@ -25,6 +26,7 @@ server.use('/', homeRouter);
 server.use('/api/users', usersRouter);
 server.use('/api/products', productsRouter); 
 server.use('/api/category', categoryRouter);
+server.use('/api/sales', salesRouter);
 
 server.listen(PORT, () => {
     logger.success(`Server listening on port ${PORT}`)
